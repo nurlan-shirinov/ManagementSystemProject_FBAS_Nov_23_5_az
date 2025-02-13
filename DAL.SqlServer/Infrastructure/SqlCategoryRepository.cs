@@ -1,7 +1,6 @@
 ﻿using DAL.SqlServer.Context;
 using Dapper;
 using Domain.Entities;
-using Repository.Common;
 using Repository.Repositories;
 
 namespace DAL.SqlServer.Infrastructure;
@@ -13,10 +12,11 @@ public class SqlCategoryRepository(string connectionString, AppDbContext context
     public async Task AddAsync(Category category)
     {
         var sql = @"INSERT INTO Categories([Name],[CreatedBy])
-                    VALUES (@Name , @CreatedBy)";
+                    VALUES (@Name , @CreatedBy); SELECT SCOPE_IDENTITY()";
 
         using var conn = OpenConnection();
-        await conn.QueryAsync(sql, category);
+        var generatedId = await conn.ExecuteScalarAsync<int>(sql,category);
+        category.Id = generatedId;
     }
 
     public bool Delete(int id, int deletedBy)
