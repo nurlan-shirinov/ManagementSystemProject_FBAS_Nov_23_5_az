@@ -1,12 +1,12 @@
 using Application;
 using DAL.SqlServer;
+using ManagementSystem.Api.Infrastructure.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 
 var conn = builder.Configuration.GetConnectionString("MyConn");
 builder.Services.AddSqlServerServices(conn);
@@ -25,5 +25,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.Run();

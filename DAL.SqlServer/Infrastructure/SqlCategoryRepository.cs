@@ -11,6 +11,8 @@ public class SqlCategoryRepository(string connectionString, AppDbContext context
 
     public async Task AddAsync(Category category)
     {
+        //if(string.IsNullOrEmpty(category.Name)
+
         var sql = @"INSERT INTO Categories([Name],[CreatedBy])
                     VALUES (@Name , @CreatedBy); SELECT SCOPE_IDENTITY()";
 
@@ -55,7 +57,8 @@ public class SqlCategoryRepository(string connectionString, AppDbContext context
 
         using var conn = OpenConnection();
 
-        return await conn.QueryFirstOrDefaultAsync<Category>(sql, id);
+        return await conn.QueryFirstOrDefaultAsync<Category>(sql, new { id });
+       
     }
 
     public void Update(Category category)
