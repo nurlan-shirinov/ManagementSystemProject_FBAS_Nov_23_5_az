@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Repository.Common;
 
 namespace DAL.SqlServer;
-
 public static class DependencyInjections
 {
     public static IServiceCollection AddSqlServerServices(this IServiceCollection services, string connectionstring)
@@ -17,7 +16,6 @@ public static class DependencyInjections
             var dbContext = opt.GetRequiredService<AppDbContext>();
             return new SqlUnitOfWork(connectionstring, dbContext);
         });
-
         return services;
     }
 }
