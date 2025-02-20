@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Application.CQRS.Users.Handlers;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using static Application.CQRS.Users.Handlers.GetByEmail;
 
@@ -24,4 +25,10 @@ public class UserController(ISender sender) : ControllerBase
         return Ok(await _sender.Send(request));
     }
 
+
+    [HttpPost]
+    public async Task<IActionResult> RegisterAsync([FromBody] Register.Command request)
+    {
+        return Ok(await _sender.Send(request));
+    }
 }

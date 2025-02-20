@@ -16,7 +16,7 @@ public class SqlUserRepository(AppDbContext context) : IUserRepository
 
     public async Task<User> GetByIdAsync(int id)
     {
-        return (await _context.Users.FirstOrDefaultAsync(u=>u.Id==id))!;
+        return (await _context.Users.FirstOrDefaultAsync(u => u.Id == id))!;
     }
 
     public async Task<User> GetUserByEmailAsync(string email)
@@ -27,13 +27,14 @@ public class SqlUserRepository(AppDbContext context) : IUserRepository
     public async Task RegisterAsync(User user)
     {
         await _context.Users.AddAsync(user);
+        await _context.SaveChangesAsync();
     }
 
     public async Task Remove(int id)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(u=>u.Id==id);
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
         user.IsDeleted = true;
-        user.DeletedDate= DateTime.Now;
+        user.DeletedDate = DateTime.Now;
         user.DeletedBy = 0;
     }
 
