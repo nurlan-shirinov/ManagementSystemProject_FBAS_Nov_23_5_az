@@ -30,4 +30,10 @@ public class UserController(ISender sender) : ControllerBase
     {
         return Ok(await _sender.Send(request));
     }
+
+    [HttpPut]
+    public async Task<IActionResult> Update([FromBody] Update.Command request)
+    {
+        return Ok(await _sender.Send(request));
+    }
 }

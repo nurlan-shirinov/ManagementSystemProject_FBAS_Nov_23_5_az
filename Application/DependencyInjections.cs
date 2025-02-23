@@ -12,7 +12,6 @@ public static class DependencyInjections
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-
         #region Automapper config
 
         MapperConfiguration mapperConfig = new(mc =>

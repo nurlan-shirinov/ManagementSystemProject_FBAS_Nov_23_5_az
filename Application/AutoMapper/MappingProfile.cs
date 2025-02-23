@@ -11,5 +11,7 @@ public class MappingProfile:Profile
     {
         CreateMap<Command, User>().ReverseMap();
         CreateMap<User, RegisterDto>();
+
+        CreateMap<User, UpdateDto>();
     }
 }

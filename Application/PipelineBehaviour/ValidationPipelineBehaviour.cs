@@ -12,6 +12,11 @@ public class ValidationPipelineBehaviour<TRequest, TResponse> : IPipelineBehavio
         _validator = validator;
     }
 
+    static ValidationPipelineBehaviour()
+    {
+        ValidatorOptions.Global.LanguageManager.Culture = new System.Globalization.CultureInfo("az");
+    }
+
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
         var context = new ValidationContext<TRequest>(request);

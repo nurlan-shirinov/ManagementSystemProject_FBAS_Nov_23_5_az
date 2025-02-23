@@ -8,8 +8,8 @@ public class RegisterValidator : AbstractValidator<Register.Command>
     public RegisterValidator()
     {
         RuleFor(u => u.Name)
-            .NotEmpty().WithMessage("Name cannot be empty")
-            .MaximumLength(255).WithMessage("Cannot be more than 255");
+            .NotEmpty()
+            .MaximumLength(255);
 
         RuleFor(u => u.Email)
             .NotEmpty()
