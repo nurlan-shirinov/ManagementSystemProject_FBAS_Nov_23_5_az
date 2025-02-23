@@ -25,7 +25,6 @@ public class UserController(ISender sender) : ControllerBase
         return Ok(await _sender.Send(request));
     }
 
-
     [HttpPost]
     public async Task<IActionResult> RegisterAsync([FromBody] Register.Command request)
     {

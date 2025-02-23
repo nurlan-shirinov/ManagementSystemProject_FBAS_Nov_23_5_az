@@ -21,21 +21,13 @@ public class Register
         public string Password { get; set; }
     }
 
-    public sealed class Handler(IUnitOfWork unitOfWork, IMapper mapper, IValidator<Command> validator) : IRequestHandler<Command, Result<RegisterDto>>
+    public sealed class Handler(IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<Command, Result<RegisterDto>>
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IMapper _mapper = mapper;
-        private readonly IValidator<Command> _validator=validator;
 
         public async Task<Result<RegisterDto>> Handle(Command request, CancellationToken cancellationToken)
         {
-
-            var validationResult = await _validator.ValidateAsync(request);
-
-            if (!validationResult.IsValid)
-            {
-                throw new ValidationException(validationResult.Errors);
-            }
 
             var currentUser = await _unitOfWork.UserRepository.GetUserByEmailAsync(request.Email);
             if (currentUser != null) throw new BadRequestException("User is already exist with provided mail");
