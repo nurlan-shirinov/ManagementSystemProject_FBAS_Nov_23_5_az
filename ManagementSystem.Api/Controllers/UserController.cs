@@ -1,7 +1,6 @@
 ﻿using Application.CQRS.Users.Handlers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using static Application.CQRS.Users.Handlers.GetByEmail;
 
 namespace ManagementSystem.Api.Controllers;
 
@@ -13,10 +12,11 @@ public class UserController(ISender sender) : ControllerBase
 
     [HttpGet]
     [Route("GetByEmail")]
-    public async Task<IActionResult> GetByEmail([FromQuery] Query request)
+    public async Task<IActionResult> GetByEmail([FromQuery] Application.CQRS.Users.Handlers.GetById.Query request)
     {
         return Ok(await _sender.Send(request));
     }
+
 
     [HttpGet]
     [Route("GetById")]
@@ -25,14 +25,16 @@ public class UserController(ISender sender) : ControllerBase
         return Ok(await _sender.Send(request));
     }
 
+
     [HttpPost]
-    public async Task<IActionResult> RegisterAsync([FromBody] Register.Command request)
+    public async Task<IActionResult> RegisterAsync([FromBody] Application.CQRS.Users.Handlers.Register.Command request)
     {
         return Ok(await _sender.Send(request));
     }
 
+
     [HttpPut]
-    public async Task<IActionResult> Update([FromBody] Update.Command request)
+    public async Task<IActionResult> Update([FromQuery] Application.CQRS.Users.Handlers.Update.Command request)
     {
         return Ok(await _sender.Send(request));
     }
