@@ -1,5 +1,6 @@
 ﻿using Application.CQRS.Users.Handlers;
 using MediatR;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ManagementSystem.Api.Controllers;
@@ -20,7 +21,7 @@ public class UserController(ISender sender) : ControllerBase
 
     [HttpGet]
     [Route("GetById")]
-    public async Task<IActionResult> GetById([FromQuery]Application.CQRS.Users.Handlers.GetById.Query request)
+    public async Task<IActionResult> GetById([FromQuery] Application.CQRS.Users.Handlers.GetById.Query request)
     {
         return Ok(await _sender.Send(request));
     }
@@ -32,9 +33,14 @@ public class UserController(ISender sender) : ControllerBase
         return Ok(await _sender.Send(request));
     }
 
-
     [HttpPut]
     public async Task<IActionResult> Update([FromQuery] Application.CQRS.Users.Handlers.Update.Command request)
+    {
+        return Ok(await _sender.Send(request));
+    }
+
+    [HttpPost("Login")]
+    public async Task<IActionResult> Login([FromBody] Application.CQRS.Users.Handlers.Login.LoginRequest request)
     {
         return Ok(await _sender.Send(request));
     }

@@ -8,7 +8,6 @@ namespace Application.Services.BackgroundServices;
 public class DeleteUserBackgroundService(IServiceScopeFactory scopeFactory) : BackgroundService
 {
     private readonly IServiceScopeFactory _scopeFactory = scopeFactory;
-
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         while (!stoppingToken.IsCancellationRequested)
@@ -31,7 +30,6 @@ public class DeleteUserBackgroundService(IServiceScopeFactory scopeFactory) : Ba
             }
             catch (Exception ex)
             {
-
                 throw new BadRequestException(ex.Message);
             }
 
