@@ -1,12 +1,12 @@
-﻿using Application.CQRS.Users.Handlers;
-using MediatR;
-using Microsoft.AspNetCore.Identity.Data;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ManagementSystem.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class UserController(ISender sender) : ControllerBase
 {
     private readonly ISender _sender = sender;
@@ -40,6 +40,7 @@ public class UserController(ISender sender) : ControllerBase
     }
 
     [HttpPost("Login")]
+    [AllowAnonymous]
     public async Task<IActionResult> Login([FromBody] Application.CQRS.Users.Handlers.Login.LoginRequest request)
     {
         return Ok(await _sender.Send(request));

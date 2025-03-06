@@ -35,8 +35,8 @@ public class RateLimitMiddleware
                 requestLog.RemoveAll(timeStamp => timeStamp <= now -  _timeSpan);
                 if(requestLog.Count >= _requestLimit)
                 {
-                    context.Response.StatusCode = StatusCodes.Status429TooManyRequests;
-                    context.Response.Headers.RetryAfter = _timeSpan.TotalSeconds.ToString();
+                    //context.Response.StatusCode = StatusCodes.Status429TooManyRequests;
+                    //context.Response.Headers.RetryAfter = _timeSpan.TotalSeconds.ToString();
                     return;
                 }
                 requestLog.Add(now);

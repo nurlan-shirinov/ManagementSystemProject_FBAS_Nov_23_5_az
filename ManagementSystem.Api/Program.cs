@@ -29,7 +29,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseMiddleware<RateLimitMiddleware>(2, TimeSpan.FromMinutes(1));
-//app.UseMiddleware<ExceptionHandlerMiddleware>();
+//app.UseMiddleware<RateLimitMiddleware>(2, TimeSpan.FromMinutes(1));
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.Run();
