@@ -21,6 +21,7 @@ public class UserController(ISender sender) : ControllerBase
 
     [HttpGet]
     [Route("GetById")]
+    [Authorize(Roles ="Admin")]
     public async Task<IActionResult> GetById([FromQuery] Application.CQRS.Users.Handlers.GetById.Query request)
     {
         return Ok(await _sender.Send(request));
@@ -28,6 +29,7 @@ public class UserController(ISender sender) : ControllerBase
 
 
     [HttpPost]
+    [AllowAnonymous]
     public async Task<IActionResult> RegisterAsync([FromBody] Application.CQRS.Users.Handlers.Register.Command request)
     {
         return Ok(await _sender.Send(request));

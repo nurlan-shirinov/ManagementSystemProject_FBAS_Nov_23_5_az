@@ -4,7 +4,6 @@ using Common.Exceptions;
 using Common.GlobalResponses.Generics;
 using Common.Security;
 using Domain.Entities;
-using FluentValidation;
 using MediatR;
 using Repository.Common;
 

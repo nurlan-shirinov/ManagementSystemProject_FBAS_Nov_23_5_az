@@ -1,5 +1,6 @@
 ﻿using Application.CQRS.Categories.Commands.Requests;
 using Application.CQRS.Categories.Commands.Responses;
+using Application.Security;
 using Common.Exceptions;
 using Common.GlobalResponses.Generics;
 using Domain.Entities;
@@ -8,9 +9,9 @@ using Repository.Common;
 
 namespace Application.CQRS.Categories.Handlers.CommandHandlers;
 
-public class CreateCategoryHandler(IUnitOfWork unitOfWork) : IRequestHandler<CreateCategoryRequest, Result<CreateCategoryResponse>>
+public class CreateCategoryHandler(IUnitOfWork unitOfWork , IUserContext userContext) : IRequestHandler<CreateCategoryRequest, Result<CreateCategoryResponse>>
 {
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+
 
     public async Task<Result<CreateCategoryResponse>> Handle(CreateCategoryRequest request, CancellationToken cancellationToken)
     {
@@ -31,7 +32,9 @@ public class CreateCategoryHandler(IUnitOfWork unitOfWork) : IRequestHandler<Cre
             throw new BadRequestException("Name null ola bilmez");
         }
 
-        await _unitOfWork.CategoryRepository.AddAsync(category);
+        category.CreatedBy= userContext.MustGetUserId();
+
+        await unitOfWork.CategoryRepository.AddAsync(category);
 
         CreateCategoryResponse response  = new()
         {

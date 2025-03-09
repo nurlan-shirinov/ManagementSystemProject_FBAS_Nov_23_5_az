@@ -42,6 +42,7 @@ public class Login
                     new Claim(ClaimTypes.NameIdentifier , currentUser.Id.ToString()),
                     new Claim(ClaimTypes.Name , currentUser.Name),
                     new Claim(ClaimTypes.Email , currentUser.Email),
+                    new Claim(ClaimTypes.Role , currentUser.UserRole.ToString())
                     ];
 
                 JwtSecurityToken token = TokenService.CreateToken(authClaims, _configuration);

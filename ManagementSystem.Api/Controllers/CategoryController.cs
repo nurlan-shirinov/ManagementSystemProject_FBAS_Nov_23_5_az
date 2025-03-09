@@ -8,12 +8,12 @@ namespace ManagementSystem.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
 public class CategoryController(ISender sender) : ControllerBase
 {
     private readonly ISender _sender = sender;
     
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Create([FromBody] CreateCategoryRequest request)
     {
         return Ok(await _sender.Send(request));

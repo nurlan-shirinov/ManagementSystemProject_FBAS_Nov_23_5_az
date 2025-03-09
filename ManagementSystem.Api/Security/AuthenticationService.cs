@@ -23,11 +23,7 @@ public static class AuthenticationService
                 ValidIssuer = configuration["JWT:ValidIssuer"],
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]!)),
                 ValidAudience = configuration["JWT:ValidAudience"],
-                //ValidateIssuer = false,
-                //ValidateIssuerSigningKey = false,
-                //ValidateAudience=false
             };
-            //cfg.IncludeErrorDetails=true;
         });
 
         return service;
